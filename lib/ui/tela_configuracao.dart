@@ -83,44 +83,57 @@ class _TelaConfiguracaoState extends State<TelaConfiguracao> {
       appBar: AppBar(title: const Text('Configurar partida')),
       body: Form(
         key: _form,
-        child: ListView(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
-          children: [
-            TextFormField(
-              controller: _timeA,
-              decoration: const InputDecoration(labelText: 'Time 1'),
-              validator: _validarNome,
-            ),
-            TextFormField(
-              controller: _timeB,
-              decoration: const InputDecoration(labelText: 'Time 2'),
-              validator: _validarNome,
-            ),
-            DropdownButtonFormField<Baralho>(
-              initialValue: _baralho,
-              decoration: const InputDecoration(labelText: 'Baralho'),
-              items: [
-                for (final baralho in baralhos)
-                  if (widget.loja.liberado(baralho))
-                    DropdownMenuItem(value: baralho, child: Text(baralho.nome)),
-              ],
-              onChanged: (novo) => setState(() => _baralho = novo!),
-            ),
-            _escolha('Segundos por turno', _segundos, [
-              30,
-              60,
-              90,
-            ], (v) => _segundos = v),
-            _escolha('Rodadas', _rodadas, [1, 2, 3, 4, 5], (v) => _rodadas = v),
-            _escolha('Pulos por turno', _pulos, [
-              0,
-              1,
-              2,
-              3,
-            ], (v) => _pulos = v),
-            const SizedBox(height: 16),
-            ElevatedButton(onPressed: _comecar, child: const Text('Começar')),
-          ],
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            spacing: 12,
+            children: [
+              TextFormField(
+                controller: _timeA,
+                decoration: const InputDecoration(labelText: 'Time 1'),
+                validator: _validarNome,
+              ),
+              TextFormField(
+                controller: _timeB,
+                decoration: const InputDecoration(labelText: 'Time 2'),
+                validator: _validarNome,
+              ),
+              DropdownButtonFormField<Baralho>(
+                initialValue: _baralho,
+                decoration: const InputDecoration(labelText: 'Baralho'),
+                items: [
+                  for (final baralho in baralhos)
+                    if (widget.loja.liberado(baralho))
+                      DropdownMenuItem(
+                        value: baralho,
+                        child: Text(baralho.nome),
+                      ),
+                ],
+                onChanged: (novo) => setState(() => _baralho = novo!),
+              ),
+              _escolha('Segundos por turno', _segundos, [
+                30,
+                60,
+                90,
+              ], (v) => _segundos = v),
+              _escolha('Rodadas', _rodadas, [
+                1,
+                2,
+                3,
+                4,
+                5,
+              ], (v) => _rodadas = v),
+              _escolha('Pulos por turno', _pulos, [
+                0,
+                1,
+                2,
+                3,
+              ], (v) => _pulos = v),
+              const SizedBox(height: 16),
+              ElevatedButton(onPressed: _comecar, child: const Text('Começar')),
+            ],
+          ),
         ),
       ),
     );

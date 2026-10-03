@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:projeto/domain/resultado.dart';
 import 'package:projeto/domain/time.dart';
@@ -25,8 +27,10 @@ class Partida extends ChangeNotifier {
   int get pulosRestantes => _pulosRestantes;
   List<Jogada> get jogadasDoTurno => List.unmodifiable(_jogadasDoTurno);
 
-  // ponytail: o monte recomeça quando acaba; embaralhar de novo se repetir incomodar.
   Carta get cartaAtual => _monte[_proximaCarta % _monte.length];
+
+  int get moedasGanhas =>
+      times.fold(0, (soma, time) => soma + max(time.pontos, 0));
 
   Time? get vencedor {
     final [a, b] = times;

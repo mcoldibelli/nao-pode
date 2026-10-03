@@ -17,12 +17,16 @@ class TelaInicial extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Não Pode')),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(24),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          spacing: 12,
           children: [
             const Text(
               'Faça seu time adivinhar a palavra sem falar as proibidas.',
+              textAlign: TextAlign.center,
             ),
             ElevatedButton(
               onPressed: () => _abrir(context, TelaConfiguracao(loja: loja)),
