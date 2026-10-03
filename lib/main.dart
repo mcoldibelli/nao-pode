@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:projeto/ui/tela_inicial.dart';
 
+import 'domain/loja.dart';
+
 void main() {
-  runApp(const MaterialApp(title: "Não Pode", home: TelaInicial()));
+  runApp(
+    MaterialApp(
+      title: "Não Pode",
+      home: TelaInicial(loja: Loja()),
+    ),
+  );
 }
