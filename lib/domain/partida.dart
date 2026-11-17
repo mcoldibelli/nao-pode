@@ -1,15 +1,21 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:projeto/domain/resultado.dart';
-import 'package:projeto/domain/time.dart';
 
 import 'carta.dart';
 import 'configuracao.dart';
 import 'jogada.dart';
 
+part 'time.dart';
+
 class Partida extends ChangeNotifier {
-  Partida(this.config)
-    : times = [Time(config.nomeTimeA), Time(config.nomeTimeB)],
-      _monte = [...config.baralho.cartas]..shuffle();
+  Partida(this.config, {Random? random})
+    : times = List.unmodifiable([
+        Time(config.nomeTimeA),
+        Time(config.nomeTimeB),
+      ]),
+      _monte = [...config.baralho.cartas]..shuffle(random);
 
   final Configuracao config;
   final List<Time> times;
@@ -44,7 +50,7 @@ class Partida extends ChangeNotifier {
       if (_pulosRestantes == 0) throw StateError('Sem pulos neste turno');
       _pulosRestantes--;
     }
-    timeDaVez.somar(resultado.pontos);
+    timeDaVez._somar(resultado.pontos);
     _jogadasDoTurno.add(Jogada(cartaAtual, resultado));
     _proximaCarta++;
     notifyListeners();

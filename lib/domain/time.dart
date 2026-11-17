@@ -1,3 +1,5 @@
+part of 'partida.dart';
+
 class Time {
   Time(this.nome);
 
@@ -6,7 +8,7 @@ class Time {
 
   int get pontos => _pontos;
 
-  void somar(int valor) {
+  void _somar(int valor) {
     _pontos += valor;
   }
 }
