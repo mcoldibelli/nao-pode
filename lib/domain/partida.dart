@@ -15,10 +15,12 @@ class Partida extends ChangeNotifier {
         Time(config.nomeTimeA),
         Time(config.nomeTimeB),
       ]),
+      _random = random,
       _monte = [...config.baralho.cartas]..shuffle(random);
 
   final Configuracao config;
   final List<Time> times;
+  final Random? _random;
   final List<Carta> _monte;
   final List<Jogada> _jogadasDoTurno = [];
   int _turno = 0;
@@ -31,7 +33,7 @@ class Partida extends ChangeNotifier {
   int get pulosRestantes => _pulosRestantes;
   List<Jogada> get jogadasDoTurno => List.unmodifiable(_jogadasDoTurno);
 
-  Carta get cartaAtual => _monte[_proximaCarta % _monte.length];
+  Carta get cartaAtual => _monte[_proximaCarta];
 
   Time? get vencedor {
     final [a, b] = times;
@@ -53,6 +55,10 @@ class Partida extends ChangeNotifier {
     timeDaVez._somar(resultado.pontos);
     _jogadasDoTurno.add(Jogada(cartaAtual, resultado));
     _proximaCarta++;
+    if (_proximaCarta == _monte.length) {
+      _monte.shuffle(_random);
+      _proximaCarta = 0;
+    }
     notifyListeners();
   }
 
