@@ -60,6 +60,7 @@ class _TelaConfiguracaoState extends State<TelaConfiguracao> {
     );
   }
 
+  // TODO
   Widget _escolha(
     String rotulo,
     int valor,
