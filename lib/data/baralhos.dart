@@ -25,7 +25,7 @@ const baralhos = [
     Carta(palavra: 'QUEIMADA', proibidas: ['fogo', 'fumaça', 'floresta', 'incêndio', 'seca']),
     Carta(palavra: 'CONGESTIONAMENTO', proibidas: ['trânsito', 'carro', 'parado', 'engarrafamento', 'buzina']),
   ]),
-  Baralho(nome: 'Saúde', preco: 5, cartas: [
+  Baralho(nome: 'Saúde', cartas: [
     Carta(palavra: 'VACINA', proibidas: ['agulha', 'injeção', 'doença', 'braço', 'posto']),
     Carta(palavra: 'SUS', proibidas: ['saúde', 'público', 'hospital', 'gratuito', 'sistema']),
     Carta(palavra: 'SAÚDE MENTAL', proibidas: ['psicólogo', 'ansiedade', 'cabeça', 'terapia', 'depressão']),
@@ -48,7 +48,7 @@ const baralhos = [
     Carta(palavra: 'TABAGISMO', proibidas: ['cigarro', 'fumar', 'pulmão', 'vício', 'fumaça']),
     Carta(palavra: 'POSTO DE SAÚDE', proibidas: ['SUS', 'médico', 'bairro', 'consulta', 'vacina']),
   ]),
-  Baralho(nome: 'Cidadania e inclusão', preco: 8, cartas: [
+  Baralho(nome: 'Cidadania e inclusão', cartas: [
     Carta(palavra: 'ACESSIBILIDADE', proibidas: ['rampa', 'cadeirante', 'deficiência', 'acesso', 'adaptar']),
     Carta(palavra: 'LIBRAS', proibidas: ['sinais', 'surdo', 'mãos', 'língua', 'linguagem']),
     Carta(palavra: 'BRAILLE', proibidas: ['cego', 'ler', 'pontos', 'dedo', 'escrita']),

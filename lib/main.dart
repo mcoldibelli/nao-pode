@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto/ui/tela_inicial.dart';
 
-import 'domain/loja.dart';
-
 void main() {
   runApp(
     MaterialApp(
@@ -20,7 +18,7 @@ void main() {
           dynamicSchemeVariant: DynamicSchemeVariant.fidelity,
         ),
       ),
-      home: TelaInicial(loja: Loja()),
+      home: const TelaInicial(),
     ),
   );
 }

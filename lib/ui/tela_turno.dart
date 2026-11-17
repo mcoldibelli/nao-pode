@@ -2,16 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../domain/loja.dart';
 import '../domain/partida.dart';
 import '../domain/resultado.dart';
 import 'tela_resumo_cartas.dart';
 
 class TelaTurno extends StatefulWidget {
-  const TelaTurno({super.key, required this.partida, required this.loja});
+  const TelaTurno({super.key, required this.partida});
 
   final Partida partida;
-  final Loja loja;
 
   @override
   State<TelaTurno> createState() => _TelaTurnoState();
@@ -45,8 +43,7 @@ class _TelaTurnoState extends State<TelaTurno> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (_) =>
-            TelaResumoCartas(partida: widget.partida, loja: widget.loja),
+        builder: (_) => TelaResumoCartas(partida: widget.partida),
       ),
     );
   }

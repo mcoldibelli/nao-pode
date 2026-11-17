@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:projeto/ui/tela_configuracao.dart';
 import 'package:projeto/ui/tela_tutorial.dart';
 
-import '../domain/loja.dart';
-
 class TelaInicial extends StatelessWidget {
-  const TelaInicial({super.key, required this.loja});
-
-  final Loja loja;
+  const TelaInicial({super.key});
 
   void _abrir(BuildContext context, Widget tela) {
     Navigator.push(context, MaterialPageRoute(builder: (_) => tela));
@@ -29,7 +25,7 @@ class TelaInicial extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             ElevatedButton(
-              onPressed: () => _abrir(context, TelaConfiguracao(loja: loja)),
+              onPressed: () => _abrir(context, const TelaConfiguracao()),
               child: const Text('Jogar'),
             ),
             TextButton(

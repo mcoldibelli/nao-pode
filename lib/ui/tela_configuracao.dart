@@ -4,13 +4,10 @@ import 'package:projeto/ui/tela_placar.dart';
 import '../data/baralhos.dart';
 import '../domain/baralho.dart';
 import '../domain/configuracao.dart';
-import '../domain/loja.dart';
 import '../domain/partida.dart';
 
 class TelaConfiguracao extends StatefulWidget {
-  const TelaConfiguracao({super.key, required this.loja});
-
-  final Loja loja;
+  const TelaConfiguracao({super.key});
 
   @override
   State<TelaConfiguracao> createState() => _TelaConfiguracaoState();
@@ -54,9 +51,7 @@ class _TelaConfiguracaoState extends State<TelaConfiguracao> {
     );
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(
-        builder: (_) => TelaPlacar(partida: partida, loja: widget.loja),
-      ),
+      MaterialPageRoute(builder: (_) => TelaPlacar(partida: partida)),
     );
   }
 
@@ -105,11 +100,7 @@ class _TelaConfiguracaoState extends State<TelaConfiguracao> {
                 decoration: const InputDecoration(labelText: 'Baralho'),
                 items: [
                   for (final baralho in baralhos)
-                    if (widget.loja.liberado(baralho))
-                      DropdownMenuItem(
-                        value: baralho,
-                        child: Text(baralho.nome),
-                      ),
+                    DropdownMenuItem(value: baralho, child: Text(baralho.nome)),
                 ],
                 onChanged: (novo) => setState(() => _baralho = novo!),
               ),

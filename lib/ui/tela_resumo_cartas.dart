@@ -1,27 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../domain/loja.dart';
 import '../domain/partida.dart';
 import 'tela_placar.dart';
 
 class TelaResumoCartas extends StatelessWidget {
-  const TelaResumoCartas({
-    super.key,
-    required this.partida,
-    required this.loja,
-  });
+  const TelaResumoCartas({super.key, required this.partida});
 
   final Partida partida;
-  final Loja loja;
 
   void _continuar(BuildContext context) {
     partida.encerrarTurno();
-    if (partida.acabou) loja.ganhar(partida.moedasGanhas);
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(
-        builder: (_) => TelaPlacar(partida: partida, loja: loja),
-      ),
+      MaterialPageRoute(builder: (_) => TelaPlacar(partida: partida)),
     );
   }
 

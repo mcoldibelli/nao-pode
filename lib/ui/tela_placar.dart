@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../domain/loja.dart';
 import '../domain/partida.dart';
 import 'tela_turno.dart';
 
 class TelaPlacar extends StatelessWidget {
-  const TelaPlacar({super.key, required this.partida, required this.loja});
+  const TelaPlacar({super.key, required this.partida});
 
   final Partida partida;
-  final Loja loja;
 
   void _comecarTurno(BuildContext context) {
     partida.iniciarTurno();
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(
-        builder: (_) => TelaTurno(partida: partida, loja: loja),
-      ),
+      MaterialPageRoute(builder: (_) => TelaTurno(partida: partida)),
     );
   }
 
@@ -47,14 +43,13 @@ class TelaPlacar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   spacing: 8,
                   children: [
-                    if (partida.acabou) ...[
+                    if (partida.acabou)
                       Text(
                         vencedor == null
                             ? 'Empate!'
                             : '${vencedor.nome} venceu!',
-                      ),
-                      Text('Moedas ganhas: ${partida.moedasGanhas}'),
-                    ] else
+                      )
+                    else
                       Text('Vez de: ${partida.timeDaVez.nome}'),
                   ],
                 ),
