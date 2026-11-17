@@ -34,16 +34,15 @@ São 3 baralhos, com 72 cartas cada:
 ## Funcionalidades
 
 - **Cadastro e login** com email e senha (Firebase Authentication), com validação dos campos e mensagens de erro (por exemplo, email já usado, senha fraca, sem conexão).
-- **Tela inicial**, com acesso a Jogar, Como jogar, Perfil e Configurações.
-- **Partida**: nomes dos times, tempo por turno, número de rodadas e pulos por turno.
+- **Tela inicial**, com acesso a Jogar, Como jogar, Perfil e Configurações. Jogar começa a partida na hora, com as opções das Configurações.
 - **Turno**: barra de tempo, carta com as proibidas, gestos de arrastar, sons, vibração e aviso de acerto.
 - **Resumo do turno** e **placar**, com o vencedor no fim da partida.
 - **Perfil**: mostra nome e email e permite editar o nome.
-- **Configurações**: tema (Sistema, Claro ou Escuro), baralho da partida e saída da conta (logout).
+- **Configurações**: tema (Sistema, Claro ou Escuro); opções da partida (baralho, nomes dos times, segundos por turno, rodadas e pulos por turno); saída da conta (logout).
 - **Como jogar**: tutorial com as regras.
 - **Identidade**: nome "Não Pode", ícone próprio e o mascote Psiu, um balão de fala com boca de zíper.
 
-Limite conhecido: o tema e o baralho escolhidos voltam ao padrão quando o app fecha.
+Limite conhecido: o tema e as opções da partida voltam ao padrão quando o app fecha.
 
 ## Tecnologias
 
@@ -81,7 +80,7 @@ O build de release usa a chave de debug (`android/app/build.gradle.kts`). Isso s
 flutter test
 ```
 
-O teste `test/jogo_test.dart` escolhe um baralho, joga uma partida inteira e confere o vencedor, no tema claro e no escuro.
+O teste `test/jogo_test.dart` configura a partida nas Configurações (baralho, nome de time, rodadas), joga uma partida inteira e confere o vencedor, no tema claro e no escuro.
 
 ## Estrutura do código
 

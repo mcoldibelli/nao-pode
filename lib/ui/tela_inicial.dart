@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:projeto/ui/tela_ajustes.dart';
-import 'package:projeto/ui/tela_configuracao.dart';
 import 'package:projeto/ui/tela_perfil.dart';
+import 'package:projeto/ui/tela_placar.dart';
 import 'package:projeto/ui/tela_tutorial.dart';
 
+import '../domain/partida.dart';
 import 'estilo.dart';
 import 'psiu.dart';
 
@@ -50,16 +51,16 @@ class TelaInicial extends StatelessWidget {
             const SizedBox(height: 12),
             Center(
               child: ValueListenableBuilder(
-                valueListenable: baralhoEscolhido,
-                builder: (context, baralho, _) =>
-                    Fala('${saudacao}Vamos de ${baralho.nome}?'),
+                valueListenable: configuracaoDaPartida,
+                builder: (context, config, _) =>
+                    Fala('${saudacao}Vamos de ${config.baralho.nome}?'),
               ),
             ).animate().fadeIn(delay: 150.ms, duration: 300.ms),
             const SizedBox(height: 40),
             ElevatedButton(
               onPressed: () => _abrir(
                 context,
-                TelaConfiguracao(baralho: baralhoEscolhido.value),
+                TelaPlacar(partida: Partida(configuracaoDaPartida.value)),
               ),
               child: const Text('Jogar'),
             ),

@@ -16,4 +16,22 @@ class Configuracao {
   final int segundosPorTurno;
   final int rodadas;
   final int pulosPorTurno;
+
+  Configuracao copyWith({
+    String? nomeTimeA,
+    String? nomeTimeB,
+    Baralho? baralho,
+    int? segundosPorTurno,
+    int? rodadas,
+    int? pulosPorTurno,
+  }) {
+    return Configuracao(
+      nomeTimeA: nomeTimeA ?? this.nomeTimeA,
+      nomeTimeB: nomeTimeB ?? this.nomeTimeB,
+      baralho: baralho ?? this.baralho,
+      segundosPorTurno: segundosPorTurno ?? this.segundosPorTurno,
+      rodadas: rodadas ?? this.rodadas,
+      pulosPorTurno: pulosPorTurno ?? this.pulosPorTurno,
+    );
+  }
 }
