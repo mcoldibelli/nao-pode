@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto/ui/tela_inicial.dart';
+import 'package:projeto/ui/tela_login.dart';
 
 import 'firebase_options.dart';
 
@@ -23,7 +25,15 @@ Future<void> main() async {
           dynamicSchemeVariant: DynamicSchemeVariant.fidelity,
         ),
       ),
-      home: const TelaInicial(),
+      home: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, sessao) {
+          if (sessao.connectionState == ConnectionState.waiting) {
+            return const Scaffold();
+          }
+          return sessao.hasData ? const TelaInicial() : const TelaLogin();
+        },
+      ),
     ),
   );
 }
