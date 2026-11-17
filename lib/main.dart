@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:projeto/ui/estilo.dart';
 import 'package:projeto/ui/tela_ajustes.dart';
 import 'package:projeto/ui/tela_inicial.dart';
 import 'package:projeto/ui/tela_login.dart';
@@ -16,26 +17,17 @@ Future<void> main() async {
       builder: (context, modo, _) => MaterialApp(
         title: "Não Pode",
         themeMode: modo,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color(0xFFE5245E),
-            dynamicSchemeVariant: DynamicSchemeVariant.fidelity,
-          ),
-        ),
-        darkTheme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color(0xFFE5245E),
-            brightness: Brightness.dark,
-            dynamicSchemeVariant: DynamicSchemeVariant.fidelity,
-          ),
-        ),
+        theme: temaDoApp(Brightness.light),
+        darkTheme: temaDoApp(Brightness.dark),
         home: StreamBuilder<User?>(
-          stream: FirebaseAuth.instance.authStateChanges(),
+          stream: FirebaseAuth.instance.userChanges(),
           builder: (context, sessao) {
             if (sessao.connectionState == ConnectionState.waiting) {
               return const Scaffold();
             }
-            return sessao.hasData ? const TelaInicial() : const TelaLogin();
+            final usuario = sessao.data;
+            if (usuario == null) return const TelaLogin();
+            return TelaInicial(nome: usuario.displayName ?? '');
           },
         ),
       ),

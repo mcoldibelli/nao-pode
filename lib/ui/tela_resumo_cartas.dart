@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../domain/partida.dart';
+import 'sons.dart';
 import 'tela_placar.dart';
 
 class TelaResumoCartas extends StatelessWidget {
@@ -10,6 +11,7 @@ class TelaResumoCartas extends StatelessWidget {
 
   void _continuar(BuildContext context) {
     partida.encerrarTurno();
+    if (partida.acabou) tocarSom('fim');
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (_) => TelaPlacar(partida: partida)),

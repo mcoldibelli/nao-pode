@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import '../data/autenticacao.dart';
+import 'estilo.dart';
 import 'tela_cadastro.dart';
 
 String? validarEmail(String? valor) {
@@ -50,44 +52,73 @@ class _TelaLoginState extends State<TelaLogin> {
 
   @override
   Widget build(BuildContext context) {
+    final cores = Theme.of(context).colorScheme;
     return Scaffold(
-      appBar: AppBar(title: const Text('Não Pode')),
-      body: Form(
-        key: _form,
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            spacing: 12,
-            children: [
-              TextFormField(
-                controller: _email,
-                decoration: const InputDecoration(labelText: 'Email'),
-                keyboardType: TextInputType.emailAddress,
-                autofillHints: const [AutofillHints.email],
-                validator: validarEmail,
-              ),
-              TextFormField(
-                controller: _senha,
-                decoration: const InputDecoration(labelText: 'Senha'),
-                obscureText: true,
-                autofillHints: const [AutofillHints.password],
-                validator: (valor) =>
-                    (valor == null || valor.isEmpty) ? 'Informe a senha' : null,
-              ),
-              const SizedBox(height: 12),
-              ElevatedButton(
-                onPressed: _enviando ? null : _entrar,
-                child: Text(_enviando ? 'Entrando...' : 'Entrar'),
-              ),
-              TextButton(
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TelaCadastro()),
+      body: SafeArea(
+        child: Form(
+          key: _form,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              spacing: 12,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Psiu(tamanho: 120)
+                        .animate()
+                        .scale(duration: 400.ms, curve: Curves.elasticOut),
+                    const Flexible(child: Fala('Psiu! Entra aí.')),
+                  ],
                 ),
-                child: const Text('Criar conta'),
-              ),
-            ],
+                Text(
+                  'não pode',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.displaySmall
+                      ?.copyWith(color: cores.primary),
+                ),
+                Text(
+                  'Faça seu time adivinhar.\nSem falar as proibidas.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16,
+                    color: cores.onSurfaceVariant,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                TextFormField(
+                  controller: _email,
+                  decoration: const InputDecoration(labelText: 'Email'),
+                  keyboardType: TextInputType.emailAddress,
+                  autofillHints: const [AutofillHints.email],
+                  validator: validarEmail,
+                ),
+                TextFormField(
+                  controller: _senha,
+                  decoration: const InputDecoration(labelText: 'Senha'),
+                  obscureText: true,
+                  autofillHints: const [AutofillHints.password],
+                  validator: (valor) => (valor == null || valor.isEmpty)
+                      ? 'Informe a senha'
+                      : null,
+                ),
+                const SizedBox(height: 12),
+                ElevatedButton(
+                  onPressed: _enviando ? null : _entrar,
+                  child: Text(_enviando ? 'Entrando...' : 'Entrar'),
+                ),
+                OutlinedButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const TelaCadastro()),
+                  ),
+                  child: const Text('Criar conta'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import '../domain/partida.dart';
+import 'estilo.dart';
 import 'tela_turno.dart';
 
 class TelaPlacar extends StatelessWidget {
@@ -59,24 +61,66 @@ class TelaPlacar extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                for (final time in partida.times)
-                  ListTile(
-                    title: Text(time.nome),
-                    trailing: Text('${time.pontos} pts'),
-                  ),
+                Row(
+                  spacing: 12,
+                  children: [
+                    for (final time in partida.times)
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: cartaoPop(
+                            context,
+                            borda: !partida.acabou && time == partida.timeDaVez
+                                ? Theme.of(context).colorScheme.primary
+                                : null,
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                                time.nome,
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              Text(
+                                '${time.pontos}',
+                                style: Theme.of(context).textTheme.displaySmall,
+                              ),
+                              const Text(
+                                'pontos',
+                                style: TextStyle(fontWeight: FontWeight.w800),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     spacing: 8,
                     children: [
-                      if (partida.acabou)
+                      if (partida.acabou) ...[
+                        Psiu(feliz: vencedor != null, tamanho: 150)
+                            .animate()
+                            .scale(duration: 500.ms, curve: Curves.elasticOut),
                         Text(
                           vencedor == null
                               ? 'Empate!'
                               : '${vencedor.nome} venceu!',
-                        )
-                      else
-                        Text('Vez de: ${partida.timeDaVez.nome}'),
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.headlineMedium
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                        ),
+                      ] else ...[
+                        const Psiu(tamanho: 110),
+                        Text(
+                          'Vez de: ${partida.timeDaVez.nome}',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      ],
                     ],
                   ),
                 ),
