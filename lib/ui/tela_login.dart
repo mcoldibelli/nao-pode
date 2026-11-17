@@ -1,9 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../data/autenticacao.dart';
+import 'envio.dart';
 import 'estilo.dart';
+import 'psiu.dart';
 import 'tela_cadastro.dart';
 
 String? validarEmail(String? valor) {
@@ -38,16 +39,12 @@ class _TelaLoginState extends State<TelaLogin> {
   Future<void> _entrar() async {
     if (!_form.currentState!.validate()) return;
     setState(() => _enviando = true);
-    try {
-      await widget.entrar(_email.text.trim(), _senha.text);
-    } on FirebaseAuthException catch (erro) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(mensagemDeErro(erro))));
-    } finally {
-      // Depois de entrar, main.dart troca esta tela pela inicial.
-      if (mounted) setState(() => _enviando = false);
-    }
+    await enviarComAviso(
+      context,
+      () => widget.entrar(_email.text.trim(), _senha.text),
+    );
+    // Depois de entrar, main.dart troca esta tela pela inicial.
+    if (mounted) setState(() => _enviando = false);
   }
 
   @override

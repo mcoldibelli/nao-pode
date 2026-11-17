@@ -27,7 +27,10 @@ Future<void> main() async {
             }
             final usuario = sessao.data;
             if (usuario == null) return const TelaLogin();
-            return TelaInicial(nome: usuario.displayName ?? '');
+            return TelaInicial(
+              nome: usuario.displayName ?? '',
+              email: usuario.email ?? '',
+            );
           },
         ),
       ),

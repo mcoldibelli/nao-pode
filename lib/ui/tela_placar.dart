@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import '../domain/partida.dart';
 import 'estilo.dart';
+import 'psiu.dart';
 import 'tela_turno.dart';
 
 class TelaPlacar extends StatelessWidget {

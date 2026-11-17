@@ -1,7 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../data/autenticacao.dart';
+import 'envio.dart';
 
 class TelaPerfil extends StatefulWidget {
   const TelaPerfil({
@@ -33,17 +33,12 @@ class _TelaPerfilState extends State<TelaPerfil> {
   Future<void> _salvar() async {
     if (!_form.currentState!.validate()) return;
     setState(() => _enviando = true);
-    String mensagem;
-    try {
-      await widget.salvarNome(_nome.text.trim());
-      mensagem = 'Nome atualizado.';
-    } on FirebaseAuthException catch (erro) {
-      mensagem = mensagemDeErro(erro);
-    }
-    if (!mounted) return;
-    setState(() => _enviando = false);
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(mensagem)));
+    await enviarComAviso(
+      context,
+      () => widget.salvarNome(_nome.text.trim()),
+      sucesso: 'Nome atualizado.',
+    );
+    if (mounted) setState(() => _enviando = false);
   }
 
   @override

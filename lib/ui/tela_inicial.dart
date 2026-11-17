@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:projeto/ui/tela_ajustes.dart';
@@ -9,6 +8,7 @@ import 'package:projeto/ui/tela_tutorial.dart';
 import '../data/baralhos.dart';
 import '../domain/baralho.dart';
 import 'estilo.dart';
+import 'psiu.dart';
 
 // Ícone e cor de cada baralho, na ordem de data/baralhos.dart.
 const _aparencia = [
@@ -18,9 +18,10 @@ const _aparencia = [
 ];
 
 class TelaInicial extends StatefulWidget {
-  const TelaInicial({super.key, this.nome = ''});
+  const TelaInicial({super.key, this.nome = '', this.email = ''});
 
   final String nome;
+  final String email;
 
   @override
   State<TelaInicial> createState() => _TelaInicialState();
@@ -34,10 +35,7 @@ class _TelaInicialState extends State<TelaInicial> {
   }
 
   void _abrirPerfil() {
-    final usuario = FirebaseAuth.instance.currentUser;
-    _abrir(
-      TelaPerfil(nome: usuario?.displayName ?? '', email: usuario?.email ?? ''),
-    );
+    _abrir(TelaPerfil(nome: widget.nome, email: widget.email));
   }
 
   @override

@@ -1,7 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../data/autenticacao.dart';
+import 'envio.dart';
 import 'tela_login.dart';
 
 class TelaCadastro extends StatefulWidget {
@@ -33,21 +33,15 @@ class _TelaCadastroState extends State<TelaCadastro> {
   Future<void> _cadastrar() async {
     if (!_form.currentState!.validate()) return;
     setState(() => _enviando = true);
-    try {
-      await widget.cadastrar(
-        _nome.text.trim(),
-        _email.text.trim(),
-        _senha.text,
-      );
-      // A conta já está logada: ao fechar esta tela, aparece a tela inicial.
-      if (mounted) Navigator.pop(context);
-    } on FirebaseAuthException catch (erro) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(mensagemDeErro(erro))));
-    } finally {
-      if (mounted) setState(() => _enviando = false);
-    }
+    final deuCerto = await enviarComAviso(
+      context,
+      () =>
+          widget.cadastrar(_nome.text.trim(), _email.text.trim(), _senha.text),
+    );
+    if (!mounted) return;
+    setState(() => _enviando = false);
+    // A conta já está logada: ao fechar esta tela, aparece a tela inicial.
+    if (deuCerto) Navigator.pop(context);
   }
 
   @override

@@ -7,6 +7,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../domain/partida.dart';
 import '../domain/resultado.dart';
 import 'estilo.dart';
+import 'psiu.dart';
+import 'resultado_na_tela.dart';
 import 'sons.dart';
 import 'tela_resumo_cartas.dart';
 
@@ -58,7 +60,7 @@ class _TelaTurnoState extends State<TelaTurno> {
 
   void _registrar(Resultado resultado) {
     widget.partida.registrar(resultado);
-    tocarSom(resultado.name);
+    tocarSom(resultado.som);
     if (resultado == Resultado.acertou) HapticFeedback.lightImpact();
     if (resultado == Resultado.errou) HapticFeedback.heavyImpact();
     _fimDoAviso?.cancel();

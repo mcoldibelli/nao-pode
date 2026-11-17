@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../domain/partida.dart';
+import 'resultado_na_tela.dart';
 import 'sons.dart';
 import 'tela_placar.dart';
 
@@ -36,7 +37,7 @@ class TelaResumoCartas extends StatelessWidget {
                       itemCount: jogadas.length,
                       itemBuilder: (context, i) => ListTile(
                         title: Text(jogadas[i].carta.palavra),
-                        trailing: Text(jogadas[i].resultado.name),
+                        trailing: Text(jogadas[i].resultado.rotulo),
                       ),
                     ),
             ),
