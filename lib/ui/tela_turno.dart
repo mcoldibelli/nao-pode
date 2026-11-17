@@ -6,6 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import '../domain/partida.dart';
 import '../domain/resultado.dart';
+import 'carta_arrastavel.dart';
 import 'estilo.dart';
 import 'psiu.dart';
 import 'resultado_na_tela.dart';
@@ -143,10 +144,15 @@ class _TelaTurnoState extends State<TelaTurno> {
                         ),
                         Expanded(
                           child:
-                              _Carta(
-                                    baralho: partida.config.baralho.nome,
-                                    palavra: carta.palavra,
-                                    proibidas: carta.proibidas,
+                              CartaArrastavel(
+                                    key: ValueKey(jogadas),
+                                    podePular: partida.pulosRestantes > 0,
+                                    aoSoltar: _registrar,
+                                    child: _Carta(
+                                      baralho: partida.config.baralho.nome,
+                                      palavra: carta.palavra,
+                                      proibidas: carta.proibidas,
+                                    ),
                                   )
                                   .animate(key: ValueKey(jogadas))
                                   .fadeIn(duration: 180.ms)
@@ -265,7 +271,9 @@ class _Carta extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: cartaoPop(context, base: 6),
+      // Sem rolagem: o arraste vertical da carta é o gesto de pular.
       child: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           spacing: 8,
