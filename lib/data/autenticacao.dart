@@ -23,6 +23,17 @@ Future<void> cadastrarComFirebase(
   await credencial.user?.updateDisplayName(nome);
 }
 
+typedef SalvarNome = Future<void> Function(String nome);
+typedef Sair = Future<void> Function();
+
+Future<void> salvarNomeNoFirebase(String nome) async {
+  final usuario = FirebaseAuth.instance.currentUser!;
+  await usuario.updateDisplayName(nome);
+  await usuario.reload();
+}
+
+Future<void> sairDoFirebase() => FirebaseAuth.instance.signOut();
+
 String mensagemDeErro(FirebaseAuthException erro) => switch (erro.code) {
   'invalid-email' => 'Email inválido.',
   'invalid-credential' ||
