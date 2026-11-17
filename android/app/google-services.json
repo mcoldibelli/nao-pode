@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "52281439714",
+    "project_id": "nao-pode",
+    "storage_bucket": "nao-pode.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52281439714:android:689fffd6cfae82869b35bb",
+        "android_client_info": {
+          "package_name": "br.com.codaline.projeto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpC40DoETve1MxMfydZVsW9cuO-xToqKU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
